@@ -323,4 +323,45 @@
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // 
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            // Validate email
+            if (!emailRegex.test(email)) {
+                alert('Masukkan alamat email yang valid.');
+                return;
+            }
+            
+            // Simpan ke localStorage untuk simulasi (ganti dengan API di production)
+            localStorage.setItem('contactFormData', JSON.stringify({
+                name,
+                email,
+                subject,
+                phone: document.getElementById('phone').value,
+                message: document.getElementById('message').value,
+                timestamp: new Date().toISOString()
+            }));
+            
+            // Tampilkan alert
+            alert(`Terima kasih ${name}! Pesan Anda dengan subjek "${subject}" telah terkirim. Kami akan menghubungi Anda melalui email ${email} segera.`);
+            
+            // Reset form
+            this.reset();
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const content = btn.nextElementSibling;
+                const icon = btn.querySelector('i');
+                
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+    </script>
+</body>
+</html>
